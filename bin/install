@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+CURRENT="`pwd`"
+
+set -e
+
+info () {
+    printf "  [ \033[00;34m..\033[0m ] $1"
+}
+
+success () {
+    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+    echo ''
+    exit
+}
+
+link_files () {
+    if [ -L "$2" ] ; then
+        rm -f "$2"
+    fi
+
+    ln -s "$CURRENT/$1" "$2"
+    success "linked $1 to $2"
+}
+
+ensure_dir () {
+    if [ ! -d "$1" ] ; then
+        mkdir -p "$1"
+
+        success "created directory $1"
+    fi
+}
+
+# git
+link_files git/gitconfig ~/.gitconfig
+link_files git/gitignore ~/.gitignore
+link_files git/gitmessage ~/.gitmessage
+
+# tmux
+# Disable tmux as I would like to tame it before customizing it blindly
+#link_files tmux/tmux.conf ~/.tmux.conf
+
+# vim
+link_files vim/vimrc ~/.vimrc
+
+# zsh
+link_files zsh/zshrc ~/.zshrc
+link_files zsh/aliases ~/.aliases
+link_files zsh/zsh ~/.zsh
+if [ `uname` = 'Linux' ] ; then
+    DIR_COLORS='zsh/dir_colors_linux'
+else
+    DIR_COLORS='zsh/dir_colors_osx'
+fi
+link_files $DIR_COLORS ~/.dir_colors
+
+
+echo ''
+echo '  All installed!'

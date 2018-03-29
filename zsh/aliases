@@ -1,0 +1,24 @@
+# Wide shell compatible aliases
+
+# Unix
+alias ls="ls --color=auto"
+alias ll="ls -al"
+alias ln="ln -v"
+alias grep="grep --color=auto"
+alias mkdir="mkdir -p"
+alias e="$EDITOR"
+alias v="$VISUAL"
+
+# Docker
+alias dockrun="docker run --rm"
+# Docker image visualization (usage: `dockviz images -t`).
+alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
+
+# Bundler
+alias b="bundle"
+
+# Pretty print the path
+alias path='echo $PATH | tr -s ":" "\n"'
+
+# Include custom aliases
+[[ -f ~/.aliases.local ]] && source ~/.aliases.local

@@ -1,0 +1,167 @@
+""""""""""""""""""""""""""""""""""""""""
+"
+" A very basic .vimrc for personnal purposes only.
+" Comments have been inspired by https://github.com/amix/vimrc
+"
+""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""
+" => Script encoding
+""""""""""""""""""""""""""""""""""""""""
+scriptencoding utf-8
+set encoding=utf-8
+
+""""""""""""""""""""""""""""""""""""""""
+" => General
+""""""""""""""""""""""""""""""""""""""""
+" filetype detections
+filetype on
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside                 
+set autoread
+
+" Remap leader key
+let mapleader = ","
+
+" Enable mouse
+set mouse=a
+
+""""""""""""""""""""""""""""""""""""""""
+" => UI
+""""""""""""""""""""""""""""""""""""""""
+" Always show current position
+set ruler
+
+" Show line numbers
+set number
+
+" Show relative line numbers
+set relativenumber
+
+" Highlight search results
+set hlsearch
+
+" Start searching when typing
+set incsearch
+
+" Underline current search in visual mode
+highlight incsearch cterm=underline
+
+" Automatic word wrapping
+set textwidth=79
+
+" Show matching brackets when cursor is over them
+set showmatch
+
+" Show invisible characters
+"set list listchars=nbsp:·,tab:¬·,trail:¤,extends:▶,precedes:◀
+set list listchars=nbsp:·,tab:¬·,trail:¤,extends:▶,precedes:<
+
+""""""""""""""""""""""""""""""""""""""""
+" => Folding
+""""""""""""""""""""""""""""""""""""""""
+set foldmethod=indent
+
+""""""""""""""""""""""""""""""""""""""""
+" => Colors and fonts
+""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax on
+
+" Show extra-whitespaces in red
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+" Show a gutter on the right at 80 chars
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+set colorcolumn=80,100
+
+""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in Git
+set nobackup
+set nowb
+set noswapfile
+
+""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Use tabs or spaces smartly
+set smarttab
+
+" 1 tab = 2 spaces by default
+set tabstop=2
+set shiftwidth=2
+
+" TODO: add a comment
+set formatoptions+=j
+set nojoinspaces
+
+""""""""""""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+""""""""""""""""""""""""""""""""""""""""
+" => Moving around
+""""""""""""""""""""""""""""""""""""""""
+
+" You should not use arrows to move
+map <Up> <Nop>
+map <Down> <Nop>
+map <Right> <Nop>
+map <Left> <Nop>
+
+""""""""""""""""""""""""""""""""""""""""
+" => Splitting
+""""""""""""""""""""""""""""""""""""""""
+" Split navigation with ctrl+h/j/k/l
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" More natural splitting
+set splitbelow
+set splitright
+
+""""""""""""""""""""""""""""""""""""""""
+" => Useful mappings
+""""""""""""""""""""""""""""""""""""""""
+" Make jk working as <Esc> key
+imap jk <Esc>
+
+" Make capital U working as ctrl+R (so it reverses u)
+nnoremap U <C-R>
+
+" Insert blank lines without entering into insert mode with leader+o/O
+nnoremap <leader>o o<Esc>k
+nnoremap <leader>O O<Esc>j
+
+""""""""""""""""""""""""""""""""""""""""
+" => Python section
+""""""""""""""""""""""""""""""""""""""""
+let python_highlight_all=1
+augroup indents
+  autocmd FileType python set tabstop=4
+  autocmd FileType python set shiftwidth=4
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""
+" => PHP section
+""""""""""""""""""""""""""""""""""""""""
+autocmd FileType php set autoindent noexpandtab tabstop=4 shiftwidth=4
+
+""""""""""""""""""""""""""""""""""""""""
+" => Source configuration files on save
+""""""""""""""""""""""""""""""""""""""""
+augroup configurationFiles
+  autocmd BufWritePost .vimrc source %
+augroup END

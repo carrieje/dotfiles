@@ -1,0 +1,6 @@
+# Run a docker container in interactive
+# Usage: dbash [image [/path/to/sh [/path/to/mount/to/mnt/tmp]]
+
+dbash() {
+  docker run --rm ${3+-v$3:/mnt/tmp} -it "${1-ubuntu}" "${2-/bin/bash}"
+}
